@@ -705,7 +705,7 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_device *adev,
 /**
  * amdgpu_device_asic_init - Wrapper for atom asic_init
  *
- * @dev: drm_device pointer
+ * @adev: drm_device pointer
  *
  * Does any asic specific work and then calls atom asic init.
  */
