@@ -151,6 +151,7 @@ static inline unsigned int refcount_read(const refcount_t *r)
  * refcount_add_not_zero - add a value to a refcount unless it is 0
  * @i: the value to add to the refcount
  * @r: the refcount
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Will saturate at REFCOUNT_SATURATED and WARN.
  *
@@ -192,6 +193,7 @@ static inline __must_check bool refcount_add_not_zero(int i, refcount_t *r)
  * refcount_add - add a value to a refcount
  * @i: the value to add to the refcount
  * @r: the refcount
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_add(), but will saturate at REFCOUNT_SATURATED and WARN.
  *
@@ -225,6 +227,7 @@ static inline void refcount_add(int i, refcount_t *r)
 /**
  * refcount_inc_not_zero - increment a refcount unless it is 0
  * @r: the refcount to increment
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_inc_not_zero(), but will saturate at REFCOUNT_SATURATED
  * and WARN.
@@ -248,6 +251,7 @@ static inline __must_check bool refcount_inc_not_zero(refcount_t *r)
 /**
  * refcount_inc - increment a refcount
  * @r: the refcount to increment
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_inc(), but will saturate at REFCOUNT_SATURATED and WARN.
  *
@@ -271,6 +275,7 @@ static inline void refcount_inc(refcount_t *r)
  * refcount_sub_and_test - subtract from a refcount and test if it is 0
  * @i: amount to subtract from the refcount
  * @r: the refcount
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_dec_and_test(), but it will WARN, return false and
  * ultimately leak on underflow and will fail to decrement when saturated
@@ -313,6 +318,7 @@ static inline __must_check bool refcount_sub_and_test(int i, refcount_t *r)
 /**
  * refcount_dec_and_test - decrement a refcount and test if it is 0
  * @r: the refcount
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_dec_and_test(), it will WARN on underflow and fail to
  * decrement when saturated at REFCOUNT_SATURATED.
@@ -336,6 +342,7 @@ static inline __must_check bool refcount_dec_and_test(refcount_t *r)
 /**
  * refcount_dec - decrement a refcount
  * @r: the refcount
+ * @oldp: if not NULL, stores the previous value of the refcount
  *
  * Similar to atomic_dec(), it will WARN on underflow and fail to decrement
  * when saturated at REFCOUNT_SATURATED.
