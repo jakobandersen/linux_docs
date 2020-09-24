@@ -36,29 +36,32 @@ returns the information to the application. The ioctl never fails.
 
 .. tabularcolumns:: |p{1.2cm}|p{2.5cm}|p{13.8cm}|
 
-.. c:struct:: cec_caps
+.. c:type:: cec_caps
 
-    .. c:var:: char driver[32]
+.. flat-table:: struct cec_caps
+    :header-rows:  0
+    :stub-columns: 0
+    :widths:       1 1 16
 
-         - The name of the cec adapter driver.
+    * - char
+      - ``driver[32]``
+      - The name of the cec adapter driver.
+    * - char
+      - ``name[32]``
+      - The name of this CEC adapter. The combination ``driver`` and
+	``name`` must be unique.
+    * - __u32
+      - ``available_log_addrs``
+      - The maximum number of logical addresses that can be configured.
+    * - __u32
+      - ``capabilities``
+      - The capabilities of the CEC adapter, see
+	:ref:`cec-capabilities`.
+    * - __u32
+      - ``version``
+      - CEC Framework API version, formatted with the ``KERNEL_VERSION()``
+	macro.
 
-    .. c:var:: char name[32]
-
-         - The name of this CEC adapter. The combination :c:var:`driver` and
-	   :c:var:`name` must be unique.
-
-    .. c:var:: __u32 available_log_addrs
-
-         - The maximum number of logical addresses that can be configured.
-
-    .. c:var:: __u32 capabilities
-
-	 - The capabilities of the CEC adapter, see :ref:`cec-capabilities`.
-
-    .. c:var:: __u32 version
-
-         - CEC Framework API version, formatted with the ``KERNEL_VERSION()``
-	   macro.
 
 .. tabularcolumns:: |p{4.4cm}|p{2.5cm}|p{10.6cm}|
 
