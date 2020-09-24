@@ -1,4 +1,5 @@
 .. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+.. c:namespace:: V4L
 
 .. _VIDIOC_ENUM_FMT:
 
@@ -11,23 +12,21 @@ Name
 
 VIDIOC_ENUM_FMT - Enumerate image formats
 
-
 Synopsis
 ========
 
-.. c:function:: int ioctl( int fd, VIDIOC_ENUM_FMT, struct v4l2_fmtdesc *argp )
-    :name: VIDIOC_ENUM_FMT
+.. c:macro:: VIDIOC_ENUM_FMT
 
+``int ioctl(int fd, VIDIOC_ENUM_FMT, struct v4l2_fmtdesc *argp)``
 
 Arguments
 =========
 
 ``fd``
-    File descriptor returned by :ref:`open() <func-open>`.
+    File descriptor returned by :c:func:`open()`.
 
 ``argp``
     Pointer to struct :c:type:`v4l2_fmtdesc`.
-
 
 Description
 ===========
@@ -71,7 +70,6 @@ the ``mbus_code`` field is handled differently:
    Regardless of the value of the ``mbus_code`` field, the enumerated image
    formats shall not depend on the active configuration of the video device
    or device pipeline.
-
 
 .. tabularcolumns:: |p{4.4cm}|p{4.4cm}|p{8.7cm}|
 
@@ -137,7 +135,6 @@ the ``mbus_code`` field is handled differently:
 	zero.
 
 
-
 .. tabularcolumns:: |p{6.6cm}|p{2.2cm}|p{8.7cm}|
 
 .. _fmtdesc-flags:
@@ -191,7 +188,6 @@ the ``mbus_code`` field is handled differently:
 	This flag can only be used in combination with the
 	``V4L2_FMT_FLAG_COMPRESSED`` flag, since this applies to
         compressed formats only. This flag is valid for stateful encoders only.
-
 
 Return Value
 ============
