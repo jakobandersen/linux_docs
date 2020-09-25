@@ -57,11 +57,11 @@ Both .flags and .private are optional. Only .func is required.
 
 To enable tracing call:
 
-.. c:function::  register_ftrace_function(&ops);
+:c:expr:`register_ftrace_function(&ops)`
 
 To disable tracing call:
 
-.. c:function::  unregister_ftrace_function(&ops);
+:c:expr:`unregister_ftrace_function(&ops)`
 
 The above is defined by including the header:
 
