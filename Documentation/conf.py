@@ -53,6 +53,28 @@ if major >= 3:
 else:
     extensions.append('cdomain', 'automarkup')
 
+# This configuration variable was added in 3.0.2
+# make the C parser recognize macros in attribute positions
+c_id_attributes = [
+	"__attribute_const__",
+	"__init_memblock",
+	"__iomem",
+	"__percpu",
+	"__pure",
+	"__ref",
+	"__restrict__",
+	"__rcu",
+	"__user",
+	"__visible",
+	"asmlinkage",
+	"noinstr",
+	"notrace",
+]
+
+# These two configuration variables were added in 3.2
+c_allow_pre_v3 = True
+c_warn_on_allowed_pre_v3 = False
+
 # Ensure that autosectionlabel will produce unique names
 autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 2
