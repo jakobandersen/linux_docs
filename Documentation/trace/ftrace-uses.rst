@@ -65,7 +65,9 @@ To disable tracing call:
 
 The above is defined by including the header:
 
-.. c:function:: #include <linux/ftrace.h>
+.. code-block:: c
+
+	#include <linux/ftrace.h>
 
 The registered callback will start being called some time after the
 register_ftrace_function() is called and before it returns. The exact time
