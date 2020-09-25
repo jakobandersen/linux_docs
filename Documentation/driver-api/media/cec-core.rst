@@ -36,7 +36,7 @@ The struct cec_adapter represents the CEC adapter hardware. It is created by
 calling cec_allocate_adapter() and deleted by calling cec_delete_adapter():
 
 .. c:function::
-   struct cec_adapter *cec_allocate_adapter(const struct cec_adap_ops *ops, void *priv,
+   struct cec_adapter *cec_allocate_adapter(const struct cec_adap_ops *ops, void *priv, \
    const char *name, u32 caps, u8 available_las);
 
 .. c:function::
@@ -125,7 +125,7 @@ hardware:
 
 To enable/disable the hardware:
 
-.. c:function::
+.. c:var::
 	int (*adap_enable)(struct cec_adapter *adap, bool enable);
 
 This callback enables or disables the CEC hardware. Enabling the CEC hardware
@@ -139,7 +139,7 @@ Note that adap_enable must return 0 if enable is false.
 
 To enable/disable the 'monitor all' mode:
 
-.. c:function::
+.. c:var::
 	int (*adap_monitor_all_enable)(struct cec_adapter *adap, bool enable);
 
 If enabled, then the adapter should be put in a mode to also monitor messages
@@ -152,7 +152,7 @@ Note that adap_monitor_all_enable must return 0 if enable is false.
 
 To enable/disable the 'monitor pin' mode:
 
-.. c:function::
+.. c:var::
 	int (*adap_monitor_pin_enable)(struct cec_adapter *adap, bool enable);
 
 If enabled, then the adapter should be put in a mode to also monitor CEC pin
@@ -165,7 +165,7 @@ Note that adap_monitor_pin_enable must return 0 if enable is false.
 
 To program a new logical address:
 
-.. c:function::
+.. c:var::
 	int (*adap_log_addr)(struct cec_adapter *adap, u8 logical_addr);
 
 If logical_addr == CEC_LOG_ADDR_INVALID then all programmed logical addresses
@@ -179,8 +179,8 @@ Note that adap_log_addr must return 0 if logical_addr is CEC_LOG_ADDR_INVALID.
 
 To transmit a new message:
 
-.. c:function::
-	int (*adap_transmit)(struct cec_adapter *adap, u8 attempts,
+.. c:var::
+	int (*adap_transmit)(struct cec_adapter *adap, u8 attempts, \
 			     u32 signal_free_time, struct cec_msg *msg);
 
 This transmits a new message. The attempts argument is the suggested number of
@@ -198,7 +198,7 @@ microseconds (one data bit period is 2.4 ms).
 
 To log the current CEC hardware status:
 
-.. c:function::
+.. c:var::
 	void (*adap_status)(struct cec_adapter *adap, struct seq_file *file);
 
 This optional callback can be used to show the status of the CEC hardware.
@@ -206,7 +206,7 @@ The status is available through debugfs: cat /sys/kernel/debug/cec/cecX/status
 
 To free any resources when the adapter is deleted:
 
-.. c:function::
+.. c:var::
 	void (*adap_free)(struct cec_adapter *adap);
 
 This optional callback can be used to free any resources that might have been
@@ -218,8 +218,8 @@ driven) by calling into the framework in the following situations:
 
 When a transmit finished (successfully or otherwise):
 
-.. c:function::
-	void cec_transmit_done(struct cec_adapter *adap, u8 status, u8 arb_lost_cnt,
+.. c:var::
+	void cec_transmit_done(struct cec_adapter *adap, u8 status, u8 arb_lost_cnt, \
 		       u8 nack_cnt, u8 low_drive_cnt, u8 error_cnt);
 
 or:
@@ -343,7 +343,7 @@ So this must work:
 The first callback is called when this file is read and it should show the
 the current error injection state:
 
-.. c:function::
+.. c:var::
 	int (*error_inj_show)(struct cec_adapter *adap, struct seq_file *sf);
 
 It is recommended that it starts with a comment block with basic usage
@@ -351,7 +351,7 @@ information. It returns 0 for success and an error otherwise.
 
 The second callback will parse commands written to the ``error-inj`` file:
 
-.. c:function::
+.. c:var::
 	bool (*error_inj_parse_line)(struct cec_adapter *adap, char *line);
 
 The ``line`` argument points to the start of the command. Any leading
@@ -384,7 +384,7 @@ CEC protocol driven. The following high-level callbacks are available:
 The received() callback allows the driver to optionally handle a newly
 received CEC message
 
-.. c:function::
+.. c:var::
 	int (*received)(struct cec_adapter *adap, struct cec_msg *msg);
 
 If the driver wants to process a CEC message, then it can implement this
@@ -399,14 +399,14 @@ CEC framework functions
 CEC Adapter drivers can call the following CEC framework functions:
 
 .. c:function::
-	int cec_transmit_msg(struct cec_adapter *adap, struct cec_msg *msg,
+	int cec_transmit_msg(struct cec_adapter *adap, struct cec_msg *msg, \
 			     bool block);
 
 Transmit a CEC message. If block is true, then wait until the message has been
 transmitted, otherwise just queue it and return.
 
 .. c:function::
-	void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr,
+	void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, \
 			     bool block);
 
 Change the physical address. This function will set adap->phys_addr and
@@ -422,7 +422,7 @@ to another valid physical address, then this function will first set the
 address to CEC_PHYS_ADDR_INVALID before enabling the new physical address.
 
 .. c:function::
-	void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
+	void cec_s_phys_addr_from_edid(struct cec_adapter *adap, \
 				       const struct edid *edid);
 
 A helper function that extracts the physical address from the edid struct
@@ -430,7 +430,7 @@ and calls cec_s_phys_addr() with that address, or CEC_PHYS_ADDR_INVALID
 if the EDID did not contain a physical address or edid was a NULL pointer.
 
 .. c:function::
-	int cec_s_log_addrs(struct cec_adapter *adap,
+	int cec_s_log_addrs(struct cec_adapter *adap, \
 			    struct cec_log_addrs *log_addrs, bool block);
 
 Claim the CEC logical addresses. Should never be called if CEC_CAP_LOG_ADDRS
