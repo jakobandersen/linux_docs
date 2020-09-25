@@ -887,7 +887,7 @@ sub output_function_rst(%) {
     my $start = "";
 
     if ($args{'typedef'}) {
-	print ".. c:function:: ". $args{'function'} . "\n\n";
+	print ".. c:type:: ". $args{'function'} . "\n\n";
 	print_lineno($declaration_start_line);
 	print "   **Typedef**: ";
 	$lineprefix = "";
