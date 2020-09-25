@@ -893,6 +893,8 @@ sub output_function_rst(%) {
 	$lineprefix = "";
 	output_highlight_rst($args{'purpose'});
 	$start = "\n\n**Syntax**\n\n  ``";
+    } elsif ($args{'functiontype'} eq "") {
+	print "..  c:macro:: ";
     } else {
 	print ".. c:function:: ";
     }
